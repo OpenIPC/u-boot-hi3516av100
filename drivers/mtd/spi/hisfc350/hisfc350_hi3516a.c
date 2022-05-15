@@ -64,7 +64,7 @@ static void hisfc350_get_best_clock(unsigned int *clock)
 	unsigned int sysclk[] = {
 		CLK_2X(24),	HISFC350_CRG48_CLK_24M,
 		CLK_2X(75),	HISFC350_CRG48_CLK_75M,
-		CLK_2X(125),	HISFC350_CRG48_CLK_125M,
+//		CLK_2X(125),	HISFC350_CRG48_CLK_125M,
 		0, 0,
 	};
 #undef CLK_2X
