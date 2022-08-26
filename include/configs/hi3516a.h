@@ -265,7 +265,7 @@
 
 /* accoding to CONFIG_CONS_INDEX */
 #define CONFIG_CUR_UART_BASE		CFG_SERIAL0
-#define CONFIG_PRODUCTNAME		"hi3516a"
+#define CONFIG_PRODUCTNAME		"hi3516dv100"
 
 /*-----------------------------------------------------------------------
  * bootrom Configuration
