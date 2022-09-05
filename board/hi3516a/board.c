@@ -112,9 +112,12 @@ void do_phy_init(void) {
   mdio_intf = getenv("mdio_intf");
   if (mdio_intf) {
 		printf("PHY Init... ");
-		if ( (!strncmp(mdio_intf, "rmii", 4)) || (!strncmp(mdio_intf, "mii", 3)) || (!strncmp(mdio_intf, "rgmii", 5)) ) {
+		if ( (!strncmp(mdio_intf, "rmii", 4)) || (!strncmp(mdio_intf, "mii", 3))) {
 			writel(0x2, 0x200f0174); // GPIO4_0 RMII_CLK_OUT/MII_TX_CLK
-			printf("rmii/mii/rgmii\n");
+			printf("rmii/mii\n");
+		} else if (!strncmp(mdio_intf, "rgmii", 5)) {
+			writel(0x1, 0x200f0174); // GPIO4_0 RGMII_TX_CLK
+			printf("rgmii\n");
 		}
   }
 }
