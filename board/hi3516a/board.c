@@ -106,6 +106,19 @@ int board_init(void)
 	return 0;
 }
 
+void do_phy_init(void) {
+  char *mdio_intf = NULL;
+
+  mdio_intf = getenv("mdio_intf");
+  if (mdio_intf) {
+		printf("PHY Init... ");
+		if ( (!strncmp(mdio_intf, "rmii", 4)) || (!strncmp(mdio_intf, "mii", 3)) ) {
+			writel(0x2, 0x200f0174); // GPIO4_0 RMII_CLK_OUT/MII_TX_CLK
+			printf("rmii/mii\n");
+		}
+  }
+}
+
 void detect_memory(void) {
 	ulong tested_ram = get_ram_size((long *)CFG_DDR_PHYS_OFFSET, CFG_DDR_SIZE)
 		/ 1024 / 1024;
@@ -123,6 +136,7 @@ int misc_init_r(void)
 	random_init_r();
 #endif
 	setenv("verify", "n");
+	do_phy_init();
 
 #ifdef CONFIG_AUTO_UPDATE
 	extern int do_auto_update(void);
