@@ -25,7 +25,7 @@
     "setnor8m=run mtdpartsnor8m; setenv bootcmd ${bootcmdnor}; saveenv; reset\0" \
     "setnor16m=run mtdpartsnor16m; setenv bootcmd ${bootcmdnor}; saveenv; reset\0" \
     "restore=n\0" \
-    "osmem=32M\0" \
+    "osmem=48M\0" \
     "soc="CONFIG_PRODUCTNAME
 
 /* env in flash instead of CFG_ENV_IS_NOWHERE */
