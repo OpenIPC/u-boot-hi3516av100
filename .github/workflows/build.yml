@@ -70,6 +70,12 @@ jobs:
           name: u-boot-${{ matrix.soc }}-universal
           path: u-boot-${{ matrix.soc }}-universal.bin
 
+  # No qemu_smoke job for this repo: widgetii/qemu-hisilicon's
+  # hi3516av100 machine doesn't currently support u-boot flash boot
+  # (the UART produces only padding when u-boot runs). Add a smoke
+  # job once that lands. Linux-direct-kernel boot in qemu does work,
+  # so this is purely a u-boot-on-av100 emulation gap.
+
   # Publish job — common failure modes:
   #   "GH_TOKEN environment variable required" / empty token: secret
   #     FIRMWARE_RELEASE_TOKEN is missing or unreadable. Set via the
