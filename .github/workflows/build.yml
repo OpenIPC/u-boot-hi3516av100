@@ -91,11 +91,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Both V2A SoCs share CV100's HISFC350 flash controller, so
-        # the smoke test must use `-global hisi-sfc350.flash-file=`
-        # rather than the more common `hisi-fmc.flash-file=` — same as
-        # the u-boot-hi3516cv100 sibling workflow. hi3516dv100 was
-        # added to qemu-hisilicon in #77 (V2A, die-identical to av100).
         include:
           - { soc: hi3516av100, machine: hi3516av100, flash_type: hisi-sfc350 }
           - { soc: hi3516dv100, machine: hi3516dv100, flash_type: hisi-sfc350 }
