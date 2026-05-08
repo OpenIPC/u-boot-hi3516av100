@@ -92,11 +92,14 @@ jobs:
       fail-fast: false
       matrix:
         # widgetii/qemu-hisilicon#59 (av100 u-boot UART padding) is
-        # closed, so the hi3516av100 machine boots our u-boot now.
+        # closed. AV100 (V2A) shares CV100's HISFC350 flash controller,
+        # so the smoke test must use `-global hisi-sfc350.flash-file=`
+        # rather than the more common `hisi-fmc.flash-file=` — same as
+        # the u-boot-hi3516cv100 sibling workflow.
         # hi3516dv100 has no QEMU machine in qemu-hisilicon and
         # publishes unguarded.
         include:
-          - { soc: hi3516av100, machine: hi3516av100 }
+          - { soc: hi3516av100, machine: hi3516av100, flash_type: hisi-sfc350 }
     steps:
       - name: Install QEMU build deps
         run: |
@@ -145,7 +148,7 @@ jobs:
           chmod +x ./qemu-arm
           ./qemu-arm \
             -M ${{ matrix.machine }} \
-            -global hisi-fmc.flash-file=/tmp/flash.bin \
+            -global ${{ matrix.flash_type }}.flash-file=/tmp/flash.bin \
             -nographic -serial pipe:/tmp/uart \
             -monitor none > /tmp/qemu.log 2>&1 &
           QEMU_PID=$!
