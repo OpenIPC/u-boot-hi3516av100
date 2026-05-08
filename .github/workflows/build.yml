@@ -92,8 +92,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { soc: hi3516av100, machine: hi3516av100, flash_type: hisi-sfc350 }
-          - { soc: hi3516dv100, machine: hi3516dv100, flash_type: hisi-sfc350 }
+          - { soc: hi3516av100, machine: hi3516av100 }
+          - { soc: hi3516dv100, machine: hi3516dv100 }
     steps:
       - name: Install QEMU build deps
         run: |
@@ -141,8 +141,7 @@ jobs:
           mkfifo /tmp/uart.in /tmp/uart.out
           chmod +x ./qemu-arm
           ./qemu-arm \
-            -M ${{ matrix.machine }} \
-            -global ${{ matrix.flash_type }}.flash-file=/tmp/flash.bin \
+            -M ${{ matrix.machine }},flash-file=/tmp/flash.bin \
             -nographic -serial pipe:/tmp/uart \
             -monitor none > /tmp/qemu.log 2>&1 &
           QEMU_PID=$!
